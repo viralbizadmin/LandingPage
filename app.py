@@ -74,8 +74,8 @@ def send_email(name, email, phone, social, message):
     
     msg.attach(MIMEText(body, 'plain'))
     
-    # Connect to SMTP server (this example uses Gmail)
-    with smtplib.SMTP('smtp.gmail.com', 587) as server:
+    # Connect to Outlook SMTP server instead of Gmail
+    with smtplib.SMTP('smtp.office365.com', 587) as server:
         server.starttls()
         server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
         text = msg.as_string()
