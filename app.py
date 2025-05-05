@@ -20,10 +20,11 @@ def index():
 @app.route('/contact', methods=['POST'])
 def contact():
     if request.method == 'POST':
+        # Collect form data
         name = request.form.get('name')
         email = request.form.get('email')
-        phone = request.form.get('phone')
-        social = request.form.get('social')
+        phone = request.form.get('phone', 'Not provided')
+        social = request.form.get('social', 'Not provided')
         message = request.form.get('message')
         
         # Basic validation
@@ -31,22 +32,20 @@ def contact():
             flash('Please fill out all required fields.', 'error')
             return redirect(url_for('index', _anchor='contact'))
         
-        # Send email if configured
-        if EMAIL_ADDRESS and EMAIL_PASSWORD and RECIPIENT_EMAIL:
-            try:
-                send_email(name, email, phone, social, message)
-                flash('Thank you for your message! Redirecting you to our calendar...', 'success')
-            except Exception as e:
-                print(f"Error sending email: {e}")
-                flash('There was an error sending your message. Please try again later.', 'error')
-                return redirect(url_for('index', _anchor='contact'))
-        else:
-            # For development without email configured
-            print(f"Form submission: {name}, {email}, {phone}, {social}, {message}")
-            flash('Thank you for your message! Redirecting you to our calendar...', 'success')
+        # Print the submission details to your server logs
+        print("\n===== NEW FORM SUBMISSION =====")
+        print(f"Name: {name}")
+        print(f"Email: {email}")
+        print(f"Phone: {phone}")
+        print(f"Social: {social}")
+        print(f"Message: {message}")
+        print("================================\n")
         
-        # Redirect to Calendly after successful form submission
-        calendly_url = "https://calendly.com/admin-viralbizsolutions/30min"  # Replace with your actual Calendly link
+        # Show success message and redirect to Calendly
+        flash('Thanks for your message! Redirecting you to schedule a call...', 'success')
+        
+        # Replace with your actual Calendly URL
+        calendly_url = "https://calendly.com/admin-viralbizsolutions/30min"
         return redirect(calendly_url)
     
 def send_email(name, email, phone, social, message):
