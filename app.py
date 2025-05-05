@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 import os
 import datetime
 from functools import wraps
+import sqlite3
+from sqlite3 import Error
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'dev_key_for_testing')
@@ -9,10 +11,44 @@ app.secret_key = os.environ.get('SECRET_KEY', 'dev_key_for_testing')
 # Configuration
 ADMIN_USERNAME = os.environ.get('ADMIN_USERNAME', 'admin')
 ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'securepassword123')
+DATABASE_PATH = os.environ.get('DATABASE_PATH', 'submissions.db')
 
-# Store submissions in memory (will be lost when server restarts)
-# In a production app, you'd use a database instead
-submissions = []
+# Database functions
+def create_connection():
+    """Create a database connection to the SQLite database"""
+    conn = None
+    try:
+        conn = sqlite3.connect(DATABASE_PATH)
+        return conn
+    except Error as e:
+        print(e)
+    return conn
+
+def create_table():
+    """Create submissions table if it doesn't exist"""
+    conn = create_connection()
+    if conn:
+        try:
+            cursor = conn.cursor()
+            cursor.execute("""
+            CREATE TABLE IF NOT EXISTS submissions (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                timestamp TEXT NOT NULL,
+                name TEXT NOT NULL,
+                email TEXT NOT NULL,
+                phone TEXT,
+                social TEXT,
+                message TEXT NOT NULL
+            );
+            """)
+            conn.commit()
+        except Error as e:
+            print(e)
+        finally:
+            conn.close()
+
+# Initialize database
+create_table()
 
 # Home route - serves the landing page
 @app.route('/')
@@ -35,32 +71,40 @@ def contact():
             flash('Please fill out all required fields.', 'error')
             return redirect(url_for('index', _anchor='contact'))
         
-        # Store submission with timestamp
-        submission = {
-            'timestamp': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            'name': name,
-            'email': email,
-            'phone': phone,
-            'social': social,
-            'message': message
-        }
-        submissions.insert(0, submission)  # Add to beginning of list
+        # Store in database
+        try:
+            conn = create_connection()
+            if conn:
+                timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                cursor = conn.cursor()
+                cursor.execute(
+                    """INSERT INTO submissions (timestamp, name, email, phone, social, message)
+                       VALUES (?, ?, ?, ?, ?, ?)""", 
+                    (timestamp, name, email, phone, social, message)
+                )
+                conn.commit()
+                conn.close()
+                
+                # Print the submission details to your server logs
+                print("\n===== NEW FORM SUBMISSION =====")
+                print(f"Name: {name}")
+                print(f"Email: {email}")
+                print(f"Phone: {phone}")
+                print(f"Social: {social}")
+                print(f"Message: {message}")
+                print("================================\n")
+                
+                # Show success message and redirect to Calendly
+                flash('Thanks for your message! Redirecting you to schedule a call...', 'success')
+                
+                # Replace with your actual Calendly URL
+                calendly_url = "https://calendly.com/admin-viralbizsolutions/30min"
+                return redirect(calendly_url)
+        except Error as e:
+            print(f"Database error: {e}")
+            flash('There was an error processing your request. Please try again later.', 'error')
         
-        # Print the submission details to your server logs
-        print("\n===== NEW FORM SUBMISSION =====")
-        print(f"Name: {name}")
-        print(f"Email: {email}")
-        print(f"Phone: {phone}")
-        print(f"Social: {social}")
-        print(f"Message: {message}")
-        print("================================\n")
-        
-        # Show success message and redirect to Calendly
-        flash('Thanks for your message! Redirecting you to schedule a call...', 'success')
-        
-        # Replace with your actual Calendly URL
-        calendly_url = "https://calendly.com/admin-viralbizsolutions/30min"
-        return redirect(calendly_url)
+        return redirect(url_for('index', _anchor='contact'))
 
 # Admin login required decorator
 def login_required(f):
@@ -90,6 +134,31 @@ def admin_login():
 @app.route('/admin/dashboard')
 @login_required
 def admin_dashboard():
+    submissions = []
+    try:
+        conn = create_connection()
+        if conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM submissions ORDER BY id DESC")
+            rows = cursor.fetchall()
+            
+            for row in rows:
+                submission = {
+                    'id': row[0],
+                    'timestamp': row[1],
+                    'name': row[2],
+                    'email': row[3],
+                    'phone': row[4],
+                    'social': row[5],
+                    'message': row[6]
+                }
+                submissions.append(submission)
+            
+            conn.close()
+    except Error as e:
+        print(f"Database error: {e}")
+        flash('There was an error retrieving submissions.', 'error')
+    
     return render_template('admin_dashboard.html', submissions=submissions)
 
 # Admin logout
