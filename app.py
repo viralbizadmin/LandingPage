@@ -17,7 +17,6 @@ RECIPIENT_EMAIL = os.environ.get('RECIPIENT_EMAIL', '')  # Where to receive cont
 def index():
     return render_template('index.html')
 
-# Process contact form submissions
 @app.route('/contact', methods=['POST'])
 def contact():
     if request.method == 'POST':
@@ -36,17 +35,20 @@ def contact():
         if EMAIL_ADDRESS and EMAIL_PASSWORD and RECIPIENT_EMAIL:
             try:
                 send_email(name, email, phone, social, message)
-                flash('Thank you for your message! We will get back to you soon.', 'success')
+                flash('Thank you for your message! Redirecting you to our calendar...', 'success')
             except Exception as e:
                 print(f"Error sending email: {e}")
                 flash('There was an error sending your message. Please try again later.', 'error')
+                return redirect(url_for('index', _anchor='contact'))
         else:
             # For development without email configured
             print(f"Form submission: {name}, {email}, {phone}, {social}, {message}")
-            flash('Thank you for your message! We will get back to you soon.', 'success')
+            flash('Thank you for your message! Redirecting you to our calendar...', 'success')
         
-        return redirect(url_for('index', _anchor='contact'))
-
+        # Redirect to Calendly after successful form submission
+        calendly_url = "https://calendly.com/admin-viralbizsolutions/30min"  # Replace with your actual Calendly link
+        return redirect(calendly_url)
+    
 def send_email(name, email, phone, social, message):
     """Send email with contact form information"""
     msg = MIMEMultipart()
