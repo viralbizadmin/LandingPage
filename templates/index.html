@@ -1033,35 +1033,51 @@
                 <h2>Contact Us</h2>
                 <p>Have questions or ready to get started? Reach out to our team today for a custom quote.</p>
             </div>
+
+            <!-- Flash messages display -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}" style="padding: 15px; margin-bottom: 20px; border-radius: 5px; 
+                        {% if category == 'success' %}
+                            background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb;
+                        {% else %}
+                            background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;
+                        {% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
             
-            <form class="contact-form">
-                <div class="form-group">
-                    <label for="name">Your Name</label>
-                    <input type="text" id="name" placeholder="Enter your name" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" placeholder="Enter your email" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" placeholder="Enter your phone number">
-                </div>
-                
-                <div class="form-group">
-                    <label for="social">Social Media Handle or Business Name</label>
-                    <input type="text" id="social" placeholder="Your primary social media handle or business website">
-                </div>
-                
-                <div class="form-group">
-                    <label for="message">Tell Us Your Main Objective(s)</label>
-                    <textarea id="message" placeholder="What are your goals? What type of viewer/customer are you looking to reach?" required></textarea>
-                </div>
-                
-                <button type="submit" class="submit-button">Request A Call</button>
-            </form>
+            <form class="contact-form" action="/contact" method="POST">
+    <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+    </div>
+    
+    <div class="form-group">
+        <label for="social">Social Media Handle</label>
+        <input type="text" id="social" name="social" placeholder="Your primary social media handle">
+    </div>
+    
+    <div class="form-group">
+        <label for="message">Tell Us About Your Project</label>
+        <textarea id="message" name="message" placeholder="What are your goals? What kind of content are you looking to create?" required></textarea>
+    </div>
+    
+    <button type="submit" class="submit-button">Request A Call</button>
+</form>
         </div>
     </section>
     
