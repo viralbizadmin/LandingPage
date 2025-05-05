@@ -45,7 +45,7 @@ def contact():
         flash('Thanks for your message! Redirecting you to schedule a call...', 'success')
         
         # Replace with your actual Calendly URL
-        calendly_url = "https://calendly.com/admin-viralbizsolutions/30min"
+        calendly_url = "https://calendly.com/admin-viralbizsolutions/30min?back=1&month=2025-05"
         return redirect(calendly_url)
     
 def send_email(name, email, phone, social, message):
