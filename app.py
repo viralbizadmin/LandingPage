@@ -1,22 +1,25 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 import os
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
+import datetime
+from functools import wraps
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'dev_key_for_testing')
 
-# Configuration (you can move this to environment variables in production)
-EMAIL_ADDRESS = os.environ.get('EMAIL_ADDRESS', '')  # Your email address
-EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD', '')  # Your email password or app password
-RECIPIENT_EMAIL = os.environ.get('RECIPIENT_EMAIL', '')  # Where to receive contact form submissions
+# Configuration
+ADMIN_USERNAME = os.environ.get('ADMIN_USERNAME', 'admin')
+ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'securepassword123')
+
+# Store submissions in memory (will be lost when server restarts)
+# In a production app, you'd use a database instead
+submissions = []
 
 # Home route - serves the landing page
 @app.route('/')
 def index():
     return render_template('index.html')
 
+# Process contact form submissions
 @app.route('/contact', methods=['POST'])
 def contact():
     if request.method == 'POST':
@@ -32,6 +35,17 @@ def contact():
             flash('Please fill out all required fields.', 'error')
             return redirect(url_for('index', _anchor='contact'))
         
+        # Store submission with timestamp
+        submission = {
+            'timestamp': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            'name': name,
+            'email': email,
+            'phone': phone,
+            'social': social,
+            'message': message
+        }
+        submissions.insert(0, submission)  # Add to beginning of list
+        
         # Print the submission details to your server logs
         print("\n===== NEW FORM SUBMISSION =====")
         print(f"Name: {name}")
@@ -45,41 +59,45 @@ def contact():
         flash('Thanks for your message! Redirecting you to schedule a call...', 'success')
         
         # Replace with your actual Calendly URL
-        calendly_url = "https://calendly.com/admin-viralbizsolutions/30min?back=1&month=2025-05"
+        calendly_url = "https://calendly.com/admin-viralbizsolutions/30min"
         return redirect(calendly_url)
+
+# Admin login required decorator
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'logged_in' not in session:
+            return redirect(url_for('admin_login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+# Admin login
+@app.route('/admin', methods=['GET', 'POST'])
+def admin_login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        
+        if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+            session['logged_in'] = True
+            return redirect(url_for('admin_dashboard'))
+        else:
+            flash('Invalid credentials', 'error')
     
-def send_email(name, email, phone, social, message):
-    """Send email with contact form information"""
-    msg = MIMEMultipart()
-    msg['From'] = EMAIL_ADDRESS
-    msg['To'] = RECIPIENT_EMAIL
-    msg['Subject'] = f"StreetViral Contact Form: {name}"
-    
-    # Create email body
-    body = f"""
-    You have received a new contact form submission from your StreetViral website:
-    
-    Name: {name}
-    Email: {email}
-    Phone: {phone or "Not provided"}
-    Social Media: {social or "Not provided"}
-    
-    Message:
-    {message}
-    
-    ---
-    This message was sent from the StreetViral contact form.
-    """
-    
-    msg.attach(MIMEText(body, 'plain'))
-    
-    # Connect to Outlook SMTP server instead of Gmail
-    with smtplib.SMTP('smtp.office365.com', 587) as server:
-        server.starttls()
-        server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-        text = msg.as_string()
-        server.sendmail(EMAIL_ADDRESS, RECIPIENT_EMAIL, text)
+    return render_template('admin_login.html')
+
+# Admin dashboard
+@app.route('/admin/dashboard')
+@login_required
+def admin_dashboard():
+    return render_template('admin_dashboard.html', submissions=submissions)
+
+# Admin logout
+@app.route('/admin/logout')
+def admin_logout():
+    session.pop('logged_in', None)
+    return redirect(url_for('admin_login'))
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 9000))  # Changed to 9000
+    port = int(os.environ.get('PORT', 9000))
     app.run(host='0.0.0.0', port=port, debug=os.environ.get('FLASK_DEBUG', 'False') == 'True')
