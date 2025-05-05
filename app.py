@@ -8,9 +8,9 @@ app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'dev_key_for_testing')
 
 Configuration (you can move this to environment variables in production)
-EMAIL_ADDRESS = os.environ.get('EMAIL_ADDRESS', 'admin@viralbizsolutions.com')  # Your email address
-EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD', 'Legacy$66')  # Your email password or app password
-RECIPIENT_EMAIL = os.environ.get('RECIPIENT_EMAIL', 'admin@viralbizsolutions.com')  # Where to receive contact form submissions
+EMAIL_ADDRESS = os.environ.get('EMAIL_ADDRESS', '')  # Your email address
+EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD', '')  # Your email password or app password
+RECIPIENT_EMAIL = os.environ.get('RECIPIENT_EMAIL', '')  # Where to receive contact form submissions
 
 # Home route - serves the landing page
 @app.route('/')
