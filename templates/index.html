@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viral Biz Solutions - Explosive Social Media Street Interviews</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #ff7b00, #ff006a);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            top: 0;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        .logo span {
+            color: #ffe400;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #ffe400;
+        }
+        
+        /* Hero section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1517457373958-b7bdd4587205?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 180px 0 100px;
+            text-align: center;
+            margin-top: 0;
+            position: relative;
+        }
+        
+        .hero:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to top, rgba(249,249,249,1), rgba(249,249,249,0));
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: #ff006a;
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 0, 106, 0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 0, 106, 0.6);
+        }
+        
+        /* Features section */
+        .features {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff7b00, #ff006a);
+            border-radius: 2px;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .feature-box {
+            text-align: center;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #ff006a;
+        }
+        
+        .feature-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        /* Gallery section */
+        .gallery-section {
+            padding: 80px 0;
+            background-color: #f0f0f0;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            height: 300px;
+        }
+        
+        .gallery-item a {
+            display: block;
+            height: 100%;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            padding: 20px;
+            color: white;
+        }
+        
+        .gallery-overlay h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .gallery-overlay p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .views-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #ff7b00, #ff006a);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+        
+        /* Brand growth section */
+        .brand-growth {
+            padding: 100px 0;
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            position: relative;
+        }
+        
+        .brand-growth-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        
+        .brand-growth-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .brand-growth-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            color: white;
+        }
+        
+        .brand-growth-text p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .brand-growth-stats {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .brand-stat {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid #ff006a;
+            transition: all 0.3s ease;
+        }
+        
+        .brand-stat:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .brand-stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #fff;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .brand-stat-text {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+        }
+        
+        /* How it works */
+        .how-it-works {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 50px;
+        }
+        
+        .step {
+            flex-basis: 30%;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            background: linear-gradient(135deg, #ff7b00, #ff006a);
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .step h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        /* Vision section */
+        .vision-section {
+            padding: 100px 0;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .vision-section h2 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            color: #fff;
+        }
+        
+        .vision-section p {
+            font-size: 1.3rem;
+            margin-bottom: 50px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        
+        .stat-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            flex-basis: 250px;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-box:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #ff7b00, #ff006a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: #fff;
+        }
+        
+        /* Guarantee Section */
+        .guarantee-section {
+            padding: 80px 0;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+        
+        .guarantee-box {
+            background: linear-gradient(135deg, #ff7b00, #ff006a);
+            color: white;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(255, 0, 106, 0.3);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .guarantee-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+        }
+        
+        .guarantee-box h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .guarantee-box p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        /* Income potential section */
+        .income-potential {
+            padding: 80px 0;
+            background-color: white;
+            text-align: center;
+        }
+        
+        .income-cards {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .income-card {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px 30px;
+            flex-basis: 300px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border-top: 5px solid #ff006a;
+        }
+        
+        .income-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .income-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #ff006a;
+        }
+        
+        .income-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .income-amount {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: #ff006a;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .income-amount:before {
+            content: '$';
+            position: absolute;
+            left: -15px;
+            top: 5px;
+            font-size: 1.5rem;
+        }
+        
+        .income-description {
+            color: #666;
+            margin-bottom: 25px;
+        }
+        
+        /* CTA section */
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1516280440614-37939bbacd81?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            color: white;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Contact section */
+        .contact {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #f9f9f9;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-button {
+            background: linear-gradient(135deg, #ff7b00, #ff006a);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-button:hover {
+            background: linear-gradient(135deg, #ff006a, #ff7b00);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 0, 106, 0.3);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column {
+            flex-basis: 30%;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background: #ff006a;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #ff006a;
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            font-size: 0.9rem;
+            color: #bbb;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .brand-growth-content {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .step {
+                flex-basis: 100%;
+            }
+            
+            .footer-column {
+                flex-basis: 48%;
+            }
+            
+            .stats-container {
+                gap: 20px;
+            }
+            
+            .stat-box {
+                flex-basis: 45%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-column {
+                flex-basis: 100%;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .stat-box {
+                flex-basis: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Viral<span>Biz</span>Solutions</div>
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#gallery">Viral Examples</a>
+                    <a href="#brand-growth">Global Growth</a>
+                    <a href="#potential">Income Potential</a>
+                    <a href="#guarantee">Our Guarantee</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Turn Street Interviews Into Viral Social Media Content</h1>
+            <p>Our professional street interview service helps creators, brands, and influencers create engaging content that goes viral and explodes your social media presence.</p>
+            <a href="#contact" class="cta-button">Contact Us Today</a>
+        </div>
+    </section>
+    
+    <!-- Features -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose ViralBiz Solutions?</h2>
+                <p>We deliver high-quality, engaging street interviews that captivate audiences and boost your social media presence</p>
+            </div>
+            
+            <div class="feature-grid">
+                <div class="feature-box">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Viral-Ready Content</h3>
+                    <p>Our street interviews are crafted to capture attention and encourage sharing, maximizing your potential to go viral.</p>
+                </div>
+                
+                <div class="feature-box">
+                    <div class="feature-icon">🎥</div>
+                    <h3>Professional Equipment</h3>
+                    <p>High-quality cameras, microphones, and lighting ensure your content looks and sounds professional.</p>
+                </div>
+                
+                <div class="feature-box">
+                    <div class="feature-icon">💡</div>
+                    <h3>Creative Questions</h3>
+                    <p>We design thought-provoking, entertaining questions that generate compelling and shareable responses.</p>
+                </div>
+                
+                <div class="feature-box">
+                    <div class="feature-icon">✂️</div>
+                    <h3>Expert Editing</h3>
+                    <p>Our team edits your interviews for maximum impact, with engaging graphics, captions, and music.</p>
+                </div>
+                
+                <div class="feature-box">
+                    <div class="feature-icon">📱</div>
+                    <h3>Format Optimization</h3>
+                    <p>Content optimized for all major platforms including TikTok, Instagram, YouTube, and more.</p>
+                </div>
+                
+                <div class="feature-box">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Target Audience Focus</h3>
+                    <p>We help you connect with your specific target audience to boost engagement and followers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Gallery Section with Street Interviews -->
+    <section class="gallery-section" id="gallery">
+        <div class="container">
+            <div class="section-title">
+                <h2>Viral Street Interview Examples</h2>
+                <p>Check out some viral street interview content that's exploding on social media</p>
+            </div>
+            
+            <div class="gallery-grid">
+    <!-- Updated Image for Trivia Series -->
+<div class="gallery-item">
+    <a href="https://www.youtube.com/shorts/BU09vmvqjJY" target="_blank">
+        <img src="https://images.pexels.com/photos/6953867/pexels-photo-6953867.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Street interviewer asking trivia questions">
+        <div class="views-badge">98M Views</div>
+        <div class="gallery-overlay">
+            <h3>"Trivia Series"</h3>
+            <p>Street series with viral potential on TikTok and Instagram</p>
+        </div>
+    </a>
+</div>
+    
+    <!-- Updated Image for Candid Q&A -->
+<div class="gallery-item">
+    <a href="https://www.youtube.com/shorts/coRNquCHXxI" target="_blank">
+        <img src="https://images.pexels.com/photos/7989254/pexels-photo-7989254.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Professional street interview with microphone">
+        <div class="views-badge">22M Views</div>
+        <div class="gallery-overlay">
+            <h3>"Candid Q&A"</h3>
+            <p>Informational answers indirectly promoting your brand</p>
+        </div>
+    </a>
+</div>
+    
+    <div class="gallery-item">
+        <a href="" target="_blank">
+            <img src="https://images.pexels.com/photos/7092613/pexels-photo-7092613.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Street interviewer with microphone">
+            <div class="views-badge">2.8M Views</div>
+            <div class="gallery-overlay">
+                <h3>"Would You Rather Questions"</h3>
+                <p>Controversial opinions led to massive comment sections</p>
+            </div>
+        </a>
+    </div>
+    
+    <!-- Updated Celebrity Interviews Section -->
+<div class="gallery-item">
+    <a href="" target="_blank">
+        <img src="https://images.pexels.com/photos/3945655/pexels-photo-3945655.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Professional celebrity interview setting">
+        <div class="views-badge">5.1M Views</div>
+        <div class="gallery-overlay">
+            <h3>"Celebrity Interviews"</h3>
+            <p>Using celebrities to promote your brand</p>
+        </div>
+    </a>
+</div>
+    
+    <div class="gallery-item">
+        <a href="" target="_blank">
+            <img src="https://images.pexels.com/photos/6954174/pexels-photo-6954174.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Street reporter interviewing">
+            <div class="views-badge">3.9M Views</div>
+            <div class="gallery-overlay">
+                <h3>"Friendship Challenges"</h3>
+                <p>Created hundreds of user-generated response videos</p>
+            </div>
+        </a>
+    </div>
+    
+    <div class="gallery-item">
+        <a href="https://www.youtube.com/shorts/v6R3sarT7AE" target="_blank">
+            <img src="https://images.pexels.com/photos/7967896/pexels-photo-7967896.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Professional street interview setup">
+            <div class="views-badge">6.5M Views</div>
+            <div class="gallery-overlay">
+                <h3>"What do you do for a living?"</h3>
+                <p>Generates significant organic growth</p>
+            </div>
+        </a>
+    </div>
+</div>
+        </div>
+    </section>
+    
+    <!-- Brand Growth Section -->
+    <section class="brand-growth" id="brand-growth">
+        <div class="container">
+            <div class="brand-growth-content">
+                <div class="brand-growth-text">
+                    <h2>Accelerating Your Brand's Global Recognition</h2>
+                    <p>In today's digital landscape, the path from local business to global brand can be remarkably swift with the right content strategy. Street interviews represent a uniquely powerful catalyst for exponential brand growth.</p>
+                    <p>Our strategic approach to viral content creation doesn't just generate views—it transforms emerging businesses into recognized industry leaders with international audiences in a fraction of the traditional timeline.</p>
+                    <p>By leveraging the authentic human connections formed through street interviews, brands establish immediate credibility, cultural relevance, and exponential audience reach that traditional marketing channels simply cannot match.</p>
+                    <a href="#contact" class="cta-button">Accelerate Your Brand Growth</a>
+                </div>
+                
+                <div class="brand-growth-stats">
+                    <div class="brand-stat">
+                        <span class="brand-stat-number">94%</span>
+                        <span class="brand-stat-text">of brands report increased international recognition within 60 days of implementing viral street content</span>
+                    </div>
+                    
+                    <div class="brand-stat">
+                        <span class="brand-stat-number">78%</span>
+                        <span class="brand-stat-text">faster path to industry thought leadership status compared to traditional brand building methods</span>
+                    </div>
+                    
+                    <div class="brand-stat">
+                        <span class="brand-stat-number">12x</span>
+                        <span class="brand-stat-text">increase in cross-border business inquiries after implementing viral street interview content</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Vision Section -->
+    <section class="vision-section">
+        <div class="container">
+            <h2>Imagine Your Content Going Viral</h2>
+            <p>Our street interviews don't just create engagement – they transform businesses, build personal brands, and create massive monetization opportunities.</p>
+            
+            <div class="stats-container">
+                <div class="stat-box">
+                    <div class="stat-number">2M+</div>
+                    <div class="stat-label">Average Views Per Viral Video</div>
+                </div>
+                
+                <div class="stat-box">
+                    <div class="stat-number">500%</div>
+                    <div class="stat-label">Average Follower Growth</div>
+                </div>
+                
+                <div class="stat-box">
+                    <div class="stat-number">10X</div>
+                    <div class="stat-label">Engagement Rate Increase</div>
+                </div>
+            </div>
+            
+            <a href="#contact" class="cta-button" style="margin-top: 50px;">Start Your Viral Journey</a>
+        </div>
+    </section>
+    
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How It Works</h2>
+                <p>Our simple 3-step process to creating viral street interview content</p>
+            </div>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Consultation</h3>
+                    <p>We discuss your brand, target audience, and content goals to create a customized interview strategy.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Production</h3>
+                    <p>Our team conducts entertaining street interviews with professional equipment in high-traffic locations.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Delivery</h3>
+                    <p>Receive fully edited, platform-optimized content ready to post and go viral on your social media channels.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Income Potential Section -->
+    <section class="income-potential" id="potential">
+        <div class="container">
+            <div class="section-title">
+                <h2>What Could One-Million Views Do For Your Business?</h2>
+                <p>Viral street interviews don't just generate views—they create real financial opportunities</p>
+            </div>
+            
+            <div class="income-cards">
+                <div class="income-card">
+                    <div class="income-icon">💰</div>
+                    <h3 class="income-title">Brand Deals</h3>
+                    <div class="income-amount">15,000</div>
+                    <p class="income-description">Average monthly brand deal income for creators with viral street content</p>
+                </div>
+                
+                <div class="income-card">
+                    <div class="income-icon">🛒</div>
+                    <h3 class="income-title">Product Sales</h3>
+                    <div class="income-amount">30,000</div>
+                    <p class="income-description">Monthly revenue increase from product sales after viral street interviews</p>
+                </div>
+                
+                <div class="income-card">
+                    <div class="income-icon">📱</div>
+                    <h3 class="income-title">Creator Fund</h3>
+                    <div class="income-amount">5,000</div>
+                    <p class="income-description">Monthly platform payments from high-performing viral street content</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 500K Views Guarantee -->
+    <section class="guarantee-section" id="guarantee">
+        <div class="container">
+            <div class="guarantee-box">
+                <div class="guarantee-icon">💯</div>
+                <h2>Our 500k Views Guarantee</h2>
+                <p>We're so confident in our ability to create viral-worthy content that we guarantee your street interview videos will reach a minimum of 500,000 combined views across platforms.</p>
+                <p>If your content doesn't reach this milestone within 60 days of posting, we'll give you your money back, no questions asked.</p>
+                <a href="#contact" class="cta-button">Claim Your Guarantee</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Explode Your Social Media Presence?</h2>
+            <p>Contact us today to discuss your goals and create a custom street interview plan tailored to your brand and audience.</p>
+            <a href="#contact" class="cta-button">Let's Discuss Your Project</a>
+        </div>
+    </section>
+    
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Us</h2>
+                <p>Have questions or ready to get started? Reach out to our team today for a custom quote.</p>
+            </div>
+            
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" placeholder="Enter your name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" placeholder="Enter your phone number">
+                </div>
+                
+                <div class="form-group">
+                    <label for="social">Social Media Handle</label>
+                    <input type="text" id="social" placeholder="Your primary social media handle">
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Tell Us About Your Project</label>
+                    <textarea id="message" placeholder="What are your goals? What kind of content are you looking to create?" required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-button">Request A Call</button>
+            </form>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Viral Biz Solutions</h3>
+                    <p>We help creators and brands create viral street interview content that explodes social media growth and engagement.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#gallery">Viral Examples</a></li>
+                        <li><a href="#brand-growth">Global Growth</a></li>
+                        <li><a href="#potential">Income Potential</a></li>
+                        <li><a href="#guarantee">Our Guarantee</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li>Email: admin@viralbizsolutions.com</li>
+                        <li>Phone: (701) 429-1903</li>
+                        
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2025 Viral Biz Solutions. All rights reserved.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
